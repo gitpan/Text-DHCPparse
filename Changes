@@ -1,0 +1,15 @@
+Revision history for Perl extension Text::DHCPparse.
+
+0.05  Clean-up and documentation
+
+0.04  Made the module return a hash ref
+
+0.03  Continue to make Module Worthy and added 
+      functionality to pull the lease start time
+
+0.02  Pull original parsing code from my makelist.pl
+      script and start modifying it for a module
+
+0.01  Fri Jun 15 06:56:33 2001
+	- original version; created by h2xs 1.19
+
