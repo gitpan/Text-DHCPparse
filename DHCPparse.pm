@@ -9,9 +9,9 @@ require Exporter;
 # Items to export into callers namespace by default. Note: do not export
 # names by default without a very good reason. Use EXPORT_OK instead.
 # Do not simply export all your public functions/methods/constants.
-@EXPORT = qw(leaseparse);
+@EXPORT = qw(leaseparse leaseparsenc);
 
-$VERSION = '0.05';
+$VERSION = '0.07';
 
 sub leaseparse {
    my $logfile = shift;
@@ -20,7 +20,7 @@ sub leaseparse {
 
    while (<FILE>) {
       next if /^#|^$/;
-      if (/(\d+\.\d+\.\d+\.\d+)/) {
+      if (/^lease (\d+\.\d+\.\d+\.\d+)/) {
          $ip = $1; 
          $list{$ip} = sprintf("%-17s", $ip);
       }
@@ -35,6 +35,37 @@ sub leaseparse {
    # make all entries 74 characters long to format properly
    foreach (keys %list) {
       $list{$_} = sprintf("%-74s", $list{$_}) if (length$list{$_} < 76);
+   }
+
+   return \%list;
+}
+
+sub leaseparsenc {
+# Same as leaseparse, but no colons in MAC and field is 5 characters shorter
+   my $logfile = shift;
+   my ( %list, $ip );
+   open FILE, $logfile or die;
+
+   while (<FILE>) {
+      next if /^#|^$/;
+      if (/^lease (\d+\.\d+\.\d+\.\d+)/) {
+         $ip = $1; 
+         $list{$ip} = sprintf("%-17s", $ip);
+      }
+      if ( /^\s*hardware ethernet (.*);/) {
+         (my $mac =  $1) =~ s/://g;
+         $list{$ip} .= sprintf("%-14s", $mac);
+      }
+      /^\s*starts \d (.*);/ && ($list{$ip} .= sprintf("%-21s", $1));
+      /^\s*(abandoned).*/ && ($list{$ip} .= sprintf("%-14s", $1));
+      /^\s*client-hostname "(.*)";/ && ($list{$ip} .= sprintf("%-17s", $1));
+   }
+
+   close FILE;
+
+   # make all entries 69 characters long to format properly
+   foreach (keys %list) {
+      $list{$_} = sprintf("%-69s", $list{$_}) if (length$list{$_} < 76);
    }
 
    return \%list;
@@ -66,6 +97,15 @@ value being the lease info in the following format:
     18 - 38    Last Lease Timestamp
     39 - 57    Hardware Address
     58 - 74    Client Hostname
+
+
+The following is if you are using the no colon function:
+   Characters       Field
+   ----------  --------------------
+     1 - 17    IP Address
+    18 - 38    Last Lease Timestamp
+    39 - 52    Hardware Address
+    53 - 69    Client Hostname
 
 (All fields have a minimum 2-space field delimiter for formatting.)
 
@@ -99,6 +139,9 @@ length record:
       ($ip, $time, $mac, $name) = unpack("A17 A21 A19 A30", $return->{$_});
       # code to handle the '$ip $time $mac & $name' variables
    }
+
+The exported function leaseparsenc works exactly the same, but it removed
+colons from the MAC address and shortens the record by 5 characters.
 
 =head1 AUTHOR
 

@@ -1,5 +1,11 @@
 Revision history for Perl extension Text::DHCPparse.
 
+0.07  Version 3 of ISC DHCP put reverse lookup info
+      in the lease.  Tweaked code to ignore these lines.
+
+0.06  Added function which removes colons from MAC
+      addresses - otherwise no changes to funtionality
+
 0.05  Clean-up and documentation
 
 0.04  Made the module return a hash ref
