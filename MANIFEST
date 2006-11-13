@@ -1,7 +1,9 @@
 Changes
 DHCPparse.pm
+LICENSE
 Makefile.PL
 MANIFEST
 README
 TODO
 test.pl
+META.yml                                 Module meta-data (added by MakeMaker)

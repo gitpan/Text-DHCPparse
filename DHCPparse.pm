@@ -11,7 +11,7 @@ require Exporter;
 # Do not simply export all your public functions/methods/constants.
 @EXPORT = qw(leaseparse leaseparsenc);
 
-$VERSION = '0.07';
+$VERSION = '0.08';
 
 sub leaseparse {
    my $logfile = shift;
@@ -145,7 +145,7 @@ colons from the MAC address and shortens the record by 5 characters.
 
 =head1 AUTHOR
 
-John D. Shearer <jds@jkshearer.com>
+John D. Shearer <dhcpparse@netguy.org>
 
 =head1 SEE ALSO
 
