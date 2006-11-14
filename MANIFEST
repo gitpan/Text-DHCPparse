@@ -1,5 +1,6 @@
 Changes
 DHCPparse.pm
+examples/example.pl
 LICENSE
 Makefile.PL
 MANIFEST

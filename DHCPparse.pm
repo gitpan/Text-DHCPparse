@@ -11,7 +11,7 @@ require Exporter;
 # Do not simply export all your public functions/methods/constants.
 @EXPORT = qw(leaseparse leaseparsenc);
 
-$VERSION = '0.08';
+$VERSION = '0.09';
 
 sub leaseparse {
    my $logfile = shift;
