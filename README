@@ -26,7 +26,7 @@ perl Makefile.pl
 make
 make install
 
-Author:  John D. Shearer <jds@jkshearer.com>
+Author:  John D. Shearer <dhcpparse@netguy.org>
 
 Copyright (c) 2001-2002 John D. Shearer.  All rights reverved.
 This program is free software; you may redistribute it

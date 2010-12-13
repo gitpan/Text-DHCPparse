@@ -11,7 +11,7 @@ require Exporter;
 # Do not simply export all your public functions/methods/constants.
 @EXPORT = qw(leaseparse leaseparsenc);
 
-$VERSION = '0.09';
+$VERSION = '0.10';
 
 sub leaseparse {
    my $logfile = shift;
@@ -34,7 +34,8 @@ sub leaseparse {
 
    # make all entries 74 characters long to format properly
    foreach (keys %list) {
-      $list{$_} = sprintf("%-74s", $list{$_}) if (length$list{$_} < 76);
+      #$list{$_} = sprintf("%-74s", $list{$_}) if (length$list{$_} < 76);
+      $list{$_} = sprintf("%-74.74s", $list{$_});
    }
 
    return \%list;
@@ -65,7 +66,8 @@ sub leaseparsenc {
 
    # make all entries 69 characters long to format properly
    foreach (keys %list) {
-      $list{$_} = sprintf("%-69s", $list{$_}) if (length$list{$_} < 76);
+      #$list{$_} = sprintf("%-69s", $list{$_}) if (length$list{$_} < 76);
+      $list{$_} = sprintf("%-69.69s", $list{$_});
    }
 
    return \%list;
